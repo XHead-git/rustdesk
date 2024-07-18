@@ -115,8 +115,6 @@ jobs:
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
 
       - name: Install vcpkg dependencies
-        env:
-          VCPKG_DEFAULT_HOST_TRIPLET: ${{ matrix.job.vcpkg-triplet }}
         run: |
           $VCPKG_ROOT/vcpkg install --triplet ${{ matrix.job.vcpkg-triplet }} --x-install-root="$VCPKG_ROOT/installed"
         shell: bash
@@ -257,8 +255,6 @@ jobs:
           vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
 
       - name: Install vcpkg dependencies
-        env:
-          VCPKG_DEFAULT_HOST_TRIPLET: ${{ matrix.job.vcpkg-triplet }}
         run: |
           $VCPKG_ROOT/vcpkg install --triplet ${{ matrix.job.vcpkg-triplet }} --x-install-root="$VCPKG_ROOT/installed"
         shell: bash
@@ -316,8 +312,6 @@ jobs:
           popd
           mkdir -p ./SignOutput
           mv ./target/release/rustdesk-portable-packer.exe ./SignOutput/rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}-sciter.exe
-          mv ./Release ./rustdesk
-          tar czf rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.tar.gz rustdesk
 
       - name: Sign rustdesk self-extracted file
         if: env.UPLOAD_ARTIFACT == 'true' && env.SIGN_BASE_URL != ''
@@ -333,7 +327,6 @@ jobs:
           tag_name: ${{ env.TAG_NAME }}
           files: |
             ./SignOutput/rustdesk-*.exe
-            ./rustdesk-*.tar.gz
 
   build-for-macOS-arm64-selfhost:
     # use build-for-macOS instead
@@ -431,7 +424,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install nasm yasm
+          brew install nasm
       - name: Checkout source code
         uses: actions/checkout@v3
       - name: Install flutter
@@ -1297,7 +1290,6 @@ jobs:
               deb_arch: amd64,
               sciter_arch: x64,
               vcpkg-triplet: x64-linux,
-              extra_features: ",hwcodec",
             }
           - {
               arch: armv7,
@@ -1307,7 +1299,6 @@ jobs:
               deb_arch: armhf,
               sciter_arch: arm32,
               vcpkg-triplet: arm-linux,
-              extra_features: "",
             }
     steps:
       - name: Export GitHub Actions cache environment variables
@@ -1438,7 +1429,7 @@ jobs:
             python3 ./res/inline-sciter.py
             export VCPKG_ROOT=/opt/artifacts/vcpkg
             export CARGO_INCREMENTAL=0
-            cargo build --features inline${{ matrix.job.extra_features }} --release --bins --jobs 1
+            cargo build --features inline --release --bins --jobs 1
             # package
             mkdir -p ./Release
             mv ./target/release/rustdesk ./Release/rustdesk
