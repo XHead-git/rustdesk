@@ -11,20 +11,20 @@ env:
 on:
   #workflow_dispatch:
   #pull_request:
-  workflow_call:
+  workflow_dispatch:
     paths-ignore:
       - "docs/**"
       - "README.md"
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - ".github/**"
-      - "docs/**"
-      - "README.md"
-      - "res/**"
-      - "appimage/**"
-      - "flatpak/**"
+  #push:
+  #  branches:
+  #    - master
+  #  paths-ignore:
+  #    - ".github/**"
+  #    - "docs/**"
+  #    - "README.md"
+  #    - "res/**"
+  #    - "appimage/**"
+  #    - "flatpak/**"
 
 jobs:
   # ensure_cargo_fmt:
