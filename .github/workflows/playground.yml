@@ -4,7 +4,14 @@ on:
   #schedule:
     # schedule build every night
   #  - cron: "0/6 * * * *"
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      upload-artifact:
+        type: boolean
+        default: true
+      upload-tag:
+        type: string
+        default: "nightly"
 
 env:
   RUST_VERSION: "1.75" # https://github.com/rustdesk/rustdesk/discussions/7503
