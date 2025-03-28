@@ -2612,6 +2612,8 @@ class CursorModel with ChangeNotifier {
     _x = -10000;
     _x = -10000;
     _image = null;
+    _firstUpdateMouseTime = null;
+    gotMouseControl = true;
     disposeImages();
 
     _clearCache();
