@@ -18,19 +18,16 @@ jobs:
         source_repo: "https://github.com/rustdesk/rustdesk.git"
         source_branch: "master"
         destination_branch: "sync"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        token: ${{ secrets.WORKFLOW_TOKEN }}
+        github_token: ${{ secrets.WORKFLOW_TOKEN }}
         
   sync-branch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-
       - name: Merge sync -> main
         uses: devmasx/merge-branch@master
         with:
           type: now
           from_branch: sync
           target_branch: main
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          token: ${{ secrets.WORKFLOW_TOKEN }}
+          github_token: ${{ secrets.WORKFLOW_TOKEN }}
