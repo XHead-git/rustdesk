@@ -19,6 +19,7 @@ jobs:
         source_branch: "master"
         destination_branch: "sync"
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.WORKFLOW_TOKEN }}
         
   sync-branch:
     runs-on: ubuntu-latest
@@ -32,3 +33,4 @@ jobs:
           from_branch: sync
           target_branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.WORKFLOW_TOKEN }}
